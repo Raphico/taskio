@@ -1,0 +1,13 @@
+.btn {
+  position: relative;
+  cursor: pointer;
+  padding-block: 0.5rem;
+  border-radius: 5px;
+  background: transparent;
+  transition: letter-spacing 350ms ease-in-out;
+  outline: 0;
+
+  &:hover {
+    letter-spacing: 1px;
+  }
+}

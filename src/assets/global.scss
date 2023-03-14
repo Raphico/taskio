@@ -1,0 +1,155 @@
+@use "./variables" as *;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font: inherit
+}
+
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+}
+
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: $ff;
+  font-size: $fs-400;
+  font-weight: $fw-regular;
+  background-color: $clr-primary;
+  color: $clr-secondary;
+  text-rendering: optimizeSpeed;
+  line-height: 1.6;
+}
+
+a {
+  text-decoration: none;
+}
+
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+   scroll-behavior: auto;
+  }
+  
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+// typography
+.text-secondary { color: $clr-secondary; }
+.text-accent { color: $clr-accent; }
+.text-error { color: $clr-error; }
+.text-success { color: $clr-accent; }
+
+.fs-300 { font-size: $fs-300; }
+.fs-500 { font-size: $fs-500; }
+
+.fw-bold { font-weight: $fw-bold; }
+
+.text-center { text-align: center; }
+
+// border & background
+.border-grey { border: 2px solid $clr-grey; }
+.border-accent { border: 2px solid $clr-accent; }
+
+.bg-grey { background-color: $clr-grey; }
+
+// container
+.container {
+  margin-inline: auto;
+  width: min(90%, 60em);
+  padding-top: 2rem;
+}
+
+// layouts
+.flex {
+  display: flex;
+  gap: var(--gap, 1rem);
+}
+
+.grid {
+  display: grid;
+  gap: var(--gap, 1rem);
+}
+
+.flow > * + * {
+  margin-top: 1.25rem;
+}
+
+// forms 
+.form {
+  width: min(90%, 25em);
+}
+
+.input-box {
+  position: relative;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 2px solid $clr-grey;
+  background: transparent;
+  border-radius: 5px;
+  outline: 0;
+  transition: border 100ms ease-in-out;
+  color: $clr-secondary;
+}
+
+.form-label {
+  position: absolute;
+  top: 0.7rem;
+  left: 0.5rem;
+  padding-inline: 0.2rem;
+  pointer-events: none; 
+  background-color: $clr-primary;
+  transition: top 200ms ease-in-out, font 200ms ease-in-out;
+}
+
+.form-input:focus {
+  border: 2px solid $clr-light;
+}
+
+.form-input:focus + .form-label,
+.form-input.not-empty + .form-label {
+  top: -0.7rem;
+  font-size: $fs-300;
+}
+
+.form-checkbox {
+  cursor: pointer;
+  width: 1rem;
+  accent-color: $clr-grey;
+}

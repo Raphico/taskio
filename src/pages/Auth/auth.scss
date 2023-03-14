@@ -1,0 +1,30 @@
+.auth {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth > * + * {
+  margin-top: 2rem;
+}
+
+.form > * + * {
+  margin-top: .5rem;
+}
+
+.password-section {
+  justify-content: space-between;
+}
+
+.show-password {
+  --gap: 0.5rem;
+}
+
+.show-password.sign-up {
+  justify-content: right;
+}
+
+.sign-up-link {
+  margin-top: 3rem;
+}

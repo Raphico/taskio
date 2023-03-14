@@ -1,0 +1,22 @@
+@use "../../assets/variables" as *;
+
+.header {
+  align-items: center;
+  justify-content: space-between;
+}
+
+.add-task {
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  padding-inline: 0.2rem;
+  aspect-ratio: 1;
+  border: 0;
+  border-radius: 50%;
+  color: $clr-secondary;
+  background-color: $clr-accent;
+}
+
+.user {
+  cursor: pointer;
+}
