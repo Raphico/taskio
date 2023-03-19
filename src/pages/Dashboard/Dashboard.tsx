@@ -232,7 +232,7 @@ function Dashboard() {
           </div>
         </header>
 
-        <div className="categories flex">
+        <div className="filters flex">
           {categoryElements}
         </div>
 
