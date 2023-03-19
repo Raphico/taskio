@@ -34,12 +34,17 @@
 }
 
 .filters {
-  justify-content: center;
   margin-top: 2rem;
   --gap: 1.5rem;
 
-  overflow-x: auto;
-  overscroll-behavior: contain;
+  overflow-x: scroll;
+  overscroll-behavior: auto;
+}
+
+@media (min-width: 40em) {
+  .filters {
+    justify-content: center;
+  }
 }
 
 .task-completed-count {
