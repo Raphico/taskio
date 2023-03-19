@@ -1,51 +1,48 @@
-import Button from "../../components/Button/Button"
+import Button from "../../components/Button/Button/Button"
 import "./auth.scss"
 import { useForm, SubmitHandler } from "react-hook-form"
-import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { sendPasswordResetEmail } from "firebase/auth"
 import { auth } from "../../config/firebase"
 import { toast } from "react-hot-toast"
 import mapError from "../../utils/mapError"
-import Spinner from "../../components/Loading/Spinner"
+import { motion } from "framer-motion"
+import { fadeIn } from "../../utils/motion"
 
 type FormData = {
   email: string,
 }
 
 function ResetPassword() {
-  const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
 
-  const { register, handleSubmit, formState } = useForm({
+  const { register, handleSubmit, 
+    formState: { dirtyFields } } = useForm({
     defaultValues: {
       email: "",
     }
   })
 
   const onSubmit: SubmitHandler<FormData> = data => {
-    setIsLoading(true)
-
     const { email } = data
 
-    sendPasswordResetEmail(auth, email)
+    toast.promise(
+      sendPasswordResetEmail(auth, email)
       .then(() => {
         navigate("/sign-in")
-        toast.success("Email sent")
-      })
-      .catch(error => {
-        console.log(error)
-        toast.error(mapError(error.code))
-      })
-      .finally(() => setIsLoading(false))
-  }
-
-  if (isLoading) {
-    return <Spinner msg="sending" />
+      }), {
+        loading: "Sending Email...",
+        success: "Email Sent",
+        error: error => {
+          console.log(error)
+          return mapError(error.code)
+        }
+      }
+    )
   }
 
   return (
-    <div className="auth">
+    <motion.div {...fadeIn} className="auth">
       <div>
         <h1 className="fs-500 text-center fw-bold">
           Welcome back!
@@ -60,7 +57,7 @@ function ResetPassword() {
             id="email"
             type="email" 
             className={`form-input 
-            ${formState.dirtyFields.email && "not-empty"}`}
+            ${dirtyFields.email && "not-empty"}`}
             autoComplete="off"
             {...register("email", { required: true })}
           />
@@ -78,7 +75,7 @@ function ResetPassword() {
           borderColor="accent" 
         />
       </form>
-    </div>
+    </motion.div>
   )
 }
 

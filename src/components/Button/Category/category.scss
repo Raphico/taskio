@@ -1,0 +1,14 @@
+@use "../../../assets/variables" as *;
+
+.category-btn {
+  cursor: pointer;
+  padding: 0.2rem 1rem; 
+  border-radius: 5px;
+  border: 0;
+  transition: background 300ms ease-in-out, color 300ms ease-in-out;
+
+  &.active, &:hover {
+    background-color: $clr-light;
+    color: $clr-primary;
+  }
+}

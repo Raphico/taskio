@@ -1,4 +1,4 @@
-import Button from "../../components/Button/Button"
+import Button from "../../components/Button/Button/Button"
 import "./auth.scss"
 import { useForm, SubmitHandler } from "react-hook-form"
 import { useEffect, useState } from "react"
@@ -8,7 +8,8 @@ import { toast } from "react-hot-toast"
 import { useAuth } from "../../context/AuthContext"
 import { useNavigate } from "react-router-dom"
 import mapError from "../../utils/mapError"
-import Spinner from "../../components/Loading/Spinner"
+import { motion } from "framer-motion"
+import { fadeIn } from "../../utils/motion"
 
 type FormData = {
   username: string,
@@ -17,7 +18,6 @@ type FormData = {
 }
 
 function SignUp() {
-  const [isLoading, setIsLoading] = useState(false)
   const { dispatch } = useAuth()
   const navigate = useNavigate()
 
@@ -34,11 +34,10 @@ function SignUp() {
   const handleShowPassword = () => setShowPassword(oldValue => !oldValue)
 
   const onSubmit: SubmitHandler<FormData> = data => {
-    setIsLoading(true)
-
     const { username, email, password } = data 
     
-    createUserWithEmailAndPassword(auth, email, password)
+    toast.promise(
+      createUserWithEmailAndPassword(auth, email, password)
       .then(userCredentials => {
         updateProfile(userCredentials.user, {
           displayName: username
@@ -54,12 +53,15 @@ function SignUp() {
             payload: user
           })
         }).then(() => navigate("/"))
-      })
-      .catch(error => {
-        console.log(error)
-        toast.error(mapError(error.code))
-      })
-      .finally(() => setIsLoading(false))
+      }), {
+        loading: "Signing up...",
+        success: "Signed In",
+        error: error => {
+          console.log(error)
+          return mapError(error.code)
+        }
+      }
+    )
   }
 
   useEffect(() => {
@@ -68,12 +70,8 @@ function SignUp() {
     }
   }, [errors?.password])
 
-  if (isLoading) {
-    return <Spinner msg="signing up" />
-  }
-
   return (
-    <div className="auth">
+    <motion.div {...fadeIn} className="auth">
       <h1 className="fs-500 text-center fw-bold">
         Welcome to 
         <span className="text-accent"> Task</span>io
@@ -148,7 +146,7 @@ function SignUp() {
           borderColor="accent" 
         />
       </form>
-    </div>
+    </motion.div>
   )
 }
 

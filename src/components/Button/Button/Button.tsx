@@ -4,10 +4,10 @@ type Props = {
   text: string,
   borderColor: string,
   onClick?: () => void,
-  type?: "button" | "submit" | "reset" | undefined
+  type?: "button" | "submit"
 }
 
-function Button({ text, borderColor, onClick, type }: Props) {
+function Button({ text, borderColor, onClick, type="button" }: Props) {
   return (
     <button 
       onClick={onClick}

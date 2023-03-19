@@ -15,8 +15,68 @@
   border-radius: 50%;
   color: $clr-secondary;
   background-color: $clr-accent;
+  transition: transform 300ms ease-in-out;
 }
 
 .user {
   cursor: pointer;
+}
+
+.add-task:hover,
+.add-task:focus {
+  outline: 0;
+  transform: translateY(-5px);
+}
+
+.no-task {
+  margin-top: 5rem;
+  text-align: center;
+}
+
+.categories {
+  justify-content: center;
+  margin-top: 2rem;
+  --gap: 1.5rem;
+
+  overflow-x: auto;
+  overscroll-behavior: contain;
+}
+
+.task-completed-count {
+  position: fixed;
+  bottom: 2rem;
+  left: 80%;
+  padding-inline: 1rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.tasks {
+  margin-inline: auto;
+  width: min(90%, 40em);
+  margin-top: 2.5rem;
+
+  .task {
+    cursor: pointer;
+    background-color: $clr-grey;
+    padding: 1rem;
+    border-radius: 5px;
+  }
+
+  .completed {
+    appearance: none;
+    background-color: $clr-primary;
+    margin: 0;
+    color: $clr-grey;
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid $clr-grey;
+    border-radius: 50%;
+    transition: background 300ms ease-in-out;
+
+    &:checked {
+      background: $clr-accent;
+    }
+  }
 }

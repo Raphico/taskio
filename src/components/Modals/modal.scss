@@ -1,0 +1,61 @@
+@use "../../assets/variables" as *;
+
+.modal {
+  background-color: $clr-primary;
+  width: min(90%, 30em);
+  height: 30em;
+  display: flex; 
+  flex-direction: column;
+  align-items: center;
+  border-radius: 5px;
+}
+
+.close-modal {
+  cursor: pointer;
+  align-self: flex-end;
+  margin: 0.5rem;
+}
+
+.account {
+  margin-top: 2rem;
+  --gap: 1.5rem;
+}
+
+.titling {
+  margin-bottom: 1.5rem;
+}
+
+.sub-titling {
+  margin-bottom: 0.5rem;
+}
+
+.category, .priority {
+  --gap: 0.5rem;
+}
+
+.categories {
+  flex-wrap: wrap;
+}
+
+.radio-input {
+  appearance: none;
+  background-color: $clr-primary;
+  margin: 0;
+  color: $clr-grey;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid $clr-grey;
+  border-radius: 50%;
+  transition: background 300ms ease-in-out;
+
+  &:checked {
+    background: $clr-accent;
+  }
+}
+
+.task-btns {
+  margin-top: 1rem;
+  & > * {
+    flex-grow: 1;
+  }
+}

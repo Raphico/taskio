@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom"
-import Button from "../../components/Button/Button"
+import Button from "../../components/Button/Button/Button"
 import "./auth.scss"
 import { useForm, SubmitHandler } from "react-hook-form"
 import { useEffect, useState } from "react"
@@ -8,7 +8,8 @@ import { signInWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../../config/firebase"
 import { useAuth } from "../../context/AuthContext"
 import mapError from "../../utils/mapError"
-import Spinner from "../../components/Loading/Spinner"
+import { motion } from "framer-motion"
+import { fadeIn } from "../../utils/motion"
 
 type FormData = {
   email: string,
@@ -16,7 +17,6 @@ type FormData = {
 }
 
 function SignIn() {
-  const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
   const { dispatch } = useAuth()
 
@@ -33,30 +33,32 @@ function SignIn() {
   setShowPassword(oldValue => !oldValue)
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
-    setIsLoading(true)
-
     const { email, password } = data
 
-    signInWithEmailAndPassword(auth, email, password)
-      .then(userCredentials => {
-        const user = {
-          uid: userCredentials.user.uid,
-          displayName: userCredentials.user.displayName,
-          email: userCredentials.user.email
-        }
-        dispatch({
-          type: "SIGN_IN_USER",
-          payload: user
+    toast.promise(
+      signInWithEmailAndPassword(auth, email, password)
+        .then(userCredentials => {
+          const user = {
+            uid: userCredentials.user.uid,
+            displayName: userCredentials.user.displayName,
+            email: userCredentials.user.email
+          }
+          dispatch({
+            type: "SIGN_IN_USER",
+            payload: user
+          })
         })
-      })
-      .then(() => {
-        navigate("/")
-      })
-      .catch(error => {
+        .then(() => {
+          navigate("/")
+        })
+      , {
+      loading: "Signing in...",
+      success: "Signed in",
+      error: error => {
         console.log(error)
-        toast.error(mapError(error.code))
-      })
-      .finally(() => setIsLoading(false))
+        return mapError(error.code)
+      },
+    })
   }
 
   useEffect(() => {
@@ -65,12 +67,8 @@ function SignIn() {
     }
   }, [errors?.password])
 
-  if (isLoading) {
-    return <Spinner msg="signing in" />
-  }
-
   return (
-    <div className="auth">
+    <motion.div {...fadeIn} className="auth">
       <h1 className="fs-500 text-center fw-bold">
         Welcome back!
       </h1>
@@ -144,7 +142,7 @@ function SignIn() {
         Don't have an account?
         <span className="fw-bold text-accent"> Sign up</span>
       </Link>
-    </div>
+    </motion.div>
   )
 }
 

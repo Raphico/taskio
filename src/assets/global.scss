@@ -39,6 +39,8 @@ body {
   color: $clr-secondary;
   text-rendering: optimizeSpeed;
   line-height: 1.6;
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 a {
@@ -70,8 +72,6 @@ picture {
 // typography
 .text-secondary { color: $clr-secondary; }
 .text-accent { color: $clr-accent; }
-.text-error { color: $clr-error; }
-.text-success { color: $clr-accent; }
 
 .fs-300 { font-size: $fs-300; }
 .fs-500 { font-size: $fs-500; }
@@ -83,6 +83,8 @@ picture {
 // border & background
 .border-grey { border: 2px solid $clr-grey; }
 .border-accent { border: 2px solid $clr-accent; }
+.border-light { border: 2px solid $clr-light; }
+.border-red { border: 2px solid red; }
 
 .bg-grey { background-color: $clr-grey; }
 
@@ -126,6 +128,10 @@ picture {
   outline: 0;
   transition: border 100ms ease-in-out;
   color: $clr-secondary;
+}
+
+.form-input:disabled {
+  color: $clr-grey;
 }
 
 .form-label {

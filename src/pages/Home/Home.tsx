@@ -1,11 +1,13 @@
 import { signInWithPopup } from "firebase/auth"
 import { toast } from "react-hot-toast"
 import { useNavigate } from "react-router-dom"
-import Button from "../../components/Button/Button"
+import Button from "../../components/Button/Button/Button"
 import { auth, googleProvider } from "../../config/firebase"
 import { useAuth } from "../../context/AuthContext"
 import mapError from "../../utils/mapError"
 import "./home.scss"
+import { motion } from "framer-motion"
+import { fadeIn } from "../../utils/motion"
 
 function Home() {
   const navigate = useNavigate()
@@ -37,7 +39,7 @@ function Home() {
   }
 
   return (
-    <div className="home flow">
+    <motion.div {...fadeIn} className="home flow">
       <h1 className="text-center fs-500 fw-bold">
         <span className="text-accent">Task</span>
         io
@@ -61,7 +63,7 @@ function Home() {
           onClick={handleEmailAuth}
         />
       </div>
-    </div>
+    </motion.div>
   )
 }
 
