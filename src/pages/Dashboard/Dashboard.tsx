@@ -104,13 +104,17 @@ function Dashboard() {
       onClick={() => handleModal("task", task)} 
       className="task"
     >
-      <div className="flex">
-        <input 
-          type="checkbox" 
-          className="completed"
-          onClick={(e) => handleCompleted(e, task.id)}
-        />
-        <label htmlFor="">{task.task}</label>
+      <div className="task-content flex">
+        <div className="flex">
+          <input 
+            type="checkbox" 
+            className="completed"
+            onClick={(e) => handleCompleted(e, task.id)}
+          />
+          <label htmlFor="">{task.task}</label>
+        </div>
+
+        <div className="priority bg-accent">{task.priority}</div>
       </div>
     </motion.div>
     )

@@ -69,6 +69,16 @@
     border-radius: 5px;
   }
 
+  .task-content {
+    justify-content: space-between;
+  }
+
+  .priority {
+    padding-inline: 0.5rem;
+    aspect-ratio: 1;
+    border-radius: 1rem 0;
+  }
+
   .completed {
     appearance: none;
     background-color: $clr-primary;
